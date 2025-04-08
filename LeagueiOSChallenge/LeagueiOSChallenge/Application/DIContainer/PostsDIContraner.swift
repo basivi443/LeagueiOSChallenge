@@ -35,10 +35,17 @@ final class PostsDIContraner: PostsFlowCoordinatorDependencies{
         )
     }
     
+    func makeLoginViewModel(action: LoginViewModelActions)-> LoginViewModel{
+        DefaultLoginViewModel(actions: action)
+    }
+    
     func makePostListViewController() -> PostListViewController {
         PostListViewController.create(with: makePostListViewModel(), storyBoardName: PostsDIContraner.storyBoard)
     }
     
+    func makeLoginViewController(actions action: LoginViewModelActions) -> LoginViewController {
+        LoginViewController.create(with: makeLoginViewModel(action: action), storyBoardName: PostsDIContraner.storyBoard)
+    }
     // MARK: - Flow Coordinators
     func makePostsFlowCoordinator(navigationController: UINavigationController) -> PostsFlowCoordinator {
         PostsFlowCoordinator(
@@ -46,7 +53,6 @@ final class PostsDIContraner: PostsFlowCoordinatorDependencies{
             dependencies: self
         )
     }
-
 }
 
 extension PostsDIContraner: SceneDIContainer{

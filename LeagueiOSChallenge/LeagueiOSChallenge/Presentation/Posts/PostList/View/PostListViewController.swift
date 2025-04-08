@@ -22,4 +22,5 @@ class PostListViewController: UIViewController, StoryboardInstantiable{
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
 }

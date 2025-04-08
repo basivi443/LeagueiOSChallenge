@@ -9,6 +9,8 @@ import UIKit
 
 protocol PostsFlowCoordinatorDependencies{
     func makePostListViewController() -> PostListViewController
+    func makeLoginViewController(actions: LoginViewModelActions) -> LoginViewController
+
 }
 
 final class PostsFlowCoordinator{
@@ -16,6 +18,7 @@ final class PostsFlowCoordinator{
     private weak var navigationController: UINavigationController?
     private let dependencies: PostsFlowCoordinatorDependencies
     private weak var postListVC: PostListViewController?
+    private weak var loginVC: LoginViewController?
 
 
     init(navigationController: UINavigationController,
@@ -26,8 +29,14 @@ final class PostsFlowCoordinator{
     
     func start() {
         // Note: here we keep strong reference with actions, this way this flow do not need to be strong referenced
-        let vc = dependencies.makePostListViewController()
+        let actions = LoginViewModelActions(showPostListViewScreen: showPostListViewScreen)
+        let vc = dependencies.makeLoginViewController(actions: actions)
         navigationController?.pushViewController(vc, animated: false)
-        postListVC = vc
+        loginVC = vc
     }
+    
+    func showPostListViewScreen(){
+       let vc = dependencies.makePostListViewController()
+       navigationController?.pushViewController(vc, animated: true)
+   }
 }
