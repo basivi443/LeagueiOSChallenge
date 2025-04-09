@@ -7,9 +7,9 @@
 
 import UIKit
 
-class PostListViewController: UIViewController, StoryboardInstantiable{
+class PostListViewController: UIViewController, StoryboardInstantiable, Alertable{
     
-    private var viewModel: PostListViewModel!
+     var viewModel: PostListViewModel!
     @IBOutlet weak var tableView: UITableView!
 
     static func create(
@@ -25,13 +25,30 @@ class PostListViewController: UIViewController, StoryboardInstantiable{
         tableView.register(UINib(nibName: "PostsTableViewCell", bundle: nil), forCellReuseIdentifier: "PostsTableViewCell")
         viewModel.viewDidLoad()
         self.bind(to: viewModel)
+        setupNavBar()
     }
     
+    func setupNavBar(){
+        let backBarButton = UIBarButtonItem.init(image: UIImage.init(named: "back_arrow"), style: .plain, target: self, action: #selector(backClicked(_:)))
+        let logutButton = UIBarButtonItem.init(title: viewModel.logoutTitle.value, style: .plain, target: self, action:  #selector(backClicked(_:)))
+        self.setupNavigationItem(with: "League", mainTitle: "", backItem: backBarButton, rightitems: [logutButton])
+    }
+    
+    @objc func backClicked(_ sender: UIButton){
+        showAlert(title: "ALert", message: "Thank you for trialing this app", preferredStyle: .alert) {
+            print("Hdlsfdslf")
+        }
+        self.navigationController?.popViewController(animated: true)
+
+    }
     //MARK: - Bind observers
     
     private func bind(to viewModel: PostListViewModel) {
         viewModel.loading.observe(on: self) { [weak self] in
             self?.updateLoading($0)
+        }
+        viewModel.isGuest.observe(on: self) { [weak self] in
+            self?.updateTitle($0)
         }
     }
     
@@ -39,6 +56,9 @@ class PostListViewController: UIViewController, StoryboardInstantiable{
     
     private func updateLoading(_ show: Bool){
         tableView.reloadData()
+    }
+    private func updateTitle(_ show: Bool){
+        viewModel.logoutTitle.value = show ? "Exit" : "Logout"
     }
     
 }

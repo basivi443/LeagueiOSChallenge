@@ -7,11 +7,11 @@
 
 import Foundation
 struct LoginViewModelActions{
-    let showPostListViewScreen : () -> Void
+    let showPostListViewScreen : (Bool) -> Void
 }
 
 protocol LoginViewModelInput{
-    func showPostListViewScreen()
+    func showPostListViewScreen(isGuest: Bool)
 }
 
 protocol LoginViewModelOutput{
@@ -30,8 +30,8 @@ class DefaultLoginViewModel : LoginViewModel{
         self.actions = actions
     }
      
-    func showPostListViewScreen() {
-        actions?.showPostListViewScreen()
+    func showPostListViewScreen(isGuest: Bool) {
+        actions?.showPostListViewScreen(isGuest)
     }
 }
 

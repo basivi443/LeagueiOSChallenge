@@ -24,10 +24,10 @@ class LoginViewController: UIViewController, StoryboardInstantiable{
     }
     
     @IBAction func showPostListScreen(_ sender : UIButton){
-        self.viewModel.showPostListViewScreen()
+        self.viewModel.showPostListViewScreen(isGuest: false)
     }
     
     @IBAction func showPostListScreenAsGuest(_ sender : UIButton){
-        self.viewModel.showPostListViewScreen()
+        self.viewModel.showPostListViewScreen(isGuest: true)
     }
 }

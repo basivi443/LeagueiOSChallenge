@@ -17,8 +17,10 @@ protocol PostListViewModelInput{
 
 protocol PostListViewModelOutput{
     var error: Observable<String> { get }
+    var logoutTitle: Observable<String> {get}
     var users:[UserDTO] {get set}
     var loading: Observable<Bool> {get}
+    var isGuest: Observable<Bool> {get}
 }
 
 protocol PostListViewModel : PostListViewModelInput,PostListViewModelOutput{
@@ -34,7 +36,10 @@ class DefaultPostListViewModel : PostListViewModel{
     private var moviesLoadTask: Cancellable? { willSet { moviesLoadTask?.cancel() } }
     private let mainQueue: DispatchQueueType
     let error: Observable<String> = Observable("")
+    let logoutTitle: Observable<String> = Observable("")
     var loading: Observable<Bool> = Observable(false)
+    var isGuest: Observable<Bool> = Observable(false)
+
      var users: [UserDTO] = []
 
     

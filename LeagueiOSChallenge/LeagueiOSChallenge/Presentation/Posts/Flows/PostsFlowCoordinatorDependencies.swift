@@ -35,8 +35,9 @@ final class PostsFlowCoordinator{
         loginVC = vc
     }
     
-    func showPostListViewScreen(){
+    func showPostListViewScreen(isGuest: Bool){
        let vc = dependencies.makePostListViewController()
+        vc.viewModel.isGuest.value = isGuest
        navigationController?.pushViewController(vc, animated: true)
    }
 }
