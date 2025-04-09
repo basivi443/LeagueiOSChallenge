@@ -9,7 +9,7 @@ import UIKit
 final class PostsDIContraner: PostsFlowCoordinatorDependencies{
     
     struct Dependencies {
-       
+        let apiDataTransferService: DataTransferService
     }
     
     private let dependencies: Dependencies
@@ -17,6 +17,7 @@ final class PostsDIContraner: PostsFlowCoordinatorDependencies{
     init(dependencies: Dependencies) {
         self.dependencies = dependencies
     }
+    lazy var userResponseCache: UserResponse = ResponseStorage()
     
     // MARK: - Use Cases
     func makePostListUseCase() -> PostListUseCase {
@@ -27,7 +28,7 @@ final class PostsDIContraner: PostsFlowCoordinatorDependencies{
     
     // MARK: - Repositories
     func makePostRepository() -> PostListRepository{
-        DefaultPostlistRepository()
+        DefaultPostlistRepository(dataTransferService: dependencies.apiDataTransferService, cache: userResponseCache)
     }
     func makePostListViewModel() -> PostListViewModel {
         DefaultPostListViewModel(

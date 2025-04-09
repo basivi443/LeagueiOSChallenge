@@ -285,12 +285,15 @@
 		6BA90E292DA509CC00ED6D9C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_BASE_URL = "https://engineering.league.dev/challenge/api";
+				API_KEY = BD04309C714D0BCEFAFD49B46A3338EC;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 55KLUDBPYU;
 				GENERATE_INFOPLIST_FILE = YES;
+				IMAGE_BASE_URL = "https://i.pravatar.cc/150?u=";
 				INFOPLIST_FILE = LeagueiOSChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -314,12 +317,15 @@
 		6BA90E2A2DA509CC00ED6D9C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_BASE_URL = "https://engineering.league.dev/challenge/api";
+				API_KEY = BD04309C714D0BCEFAFD49B46A3338EC;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 55KLUDBPYU;
 				GENERATE_INFOPLIST_FILE = YES;
+				IMAGE_BASE_URL = "https://i.pravatar.cc/150?u=";
 				INFOPLIST_FILE = LeagueiOSChallenge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

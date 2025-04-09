@@ -69,7 +69,7 @@
                                     <constraint firstAttribute="height" constant="45" id="DhK-uM-Asj"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="GUEST LOGIN ">
+                                <buttonConfiguration key="configuration" style="plain" title="CONTINUE AS GUEST ">
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -115,13 +115,32 @@
                     <view key="view" contentMode="scaleToFill" id="mnI-f3-cb4">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="19p-Pn-ycr">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="vG3-v2-PB3" id="u2j-c1-ViS"/>
+                                    <outlet property="delegate" destination="vG3-v2-PB3" id="qZq-UW-1JN"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="nDZ-rz-Pys"/>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="19p-Pn-ycr" secondAttribute="bottom" id="1tj-Bh-pL7"/>
+                            <constraint firstItem="19p-Pn-ycr" firstAttribute="top" secondItem="mnI-f3-cb4" secondAttribute="top" id="2Tv-Kn-qYt"/>
+                            <constraint firstItem="nDZ-rz-Pys" firstAttribute="trailing" secondItem="19p-Pn-ycr" secondAttribute="trailing" id="WRn-QZ-Swj"/>
+                            <constraint firstItem="19p-Pn-ycr" firstAttribute="leading" secondItem="nDZ-rz-Pys" secondAttribute="leading" id="nZ6-LB-2R5"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="19p-Pn-ycr" id="yPz-Ob-H9L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86C-59-vgz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1123" y="4"/>
+            <point key="canvasLocation" x="836" y="-5"/>
         </scene>
     </scenes>
     <resources>
@@ -133,8 +152,8 @@
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>
