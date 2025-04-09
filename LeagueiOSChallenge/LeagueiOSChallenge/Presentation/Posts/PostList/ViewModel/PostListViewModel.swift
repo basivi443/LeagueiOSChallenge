@@ -7,11 +7,11 @@
 
 import Foundation
 struct PostListViewModelActions{
-    let showPostListViewScreen : () -> Void
+    let showPostDetailsViewScreen : (UserDTO) -> Void
 }
 
 protocol PostListViewModelInput{
-    func showPostListViewScreen()
+    func showPostDetailsViewScreen(user: UserDTO)
     func viewDidLoad()
 }
 
@@ -41,7 +41,6 @@ class DefaultPostListViewModel : PostListViewModel{
     var isGuest: Observable<Bool> = Observable(false)
 
      var users: [UserDTO] = []
-
     
     init(postListUseCase: PostListUseCase, actions: PostListViewModelActions? = nil, mainQueue: DispatchQueueType = DispatchQueue.main) {
         self.postListUseCase = postListUseCase
@@ -49,8 +48,8 @@ class DefaultPostListViewModel : PostListViewModel{
         self.mainQueue = mainQueue
     }
      
-    func showPostListViewScreen() {
-        actions?.showPostListViewScreen()
+    func showPostDetailsViewScreen(user: UserDTO) {
+        actions?.showPostDetailsViewScreen(user)
     }
     
     func viewDidLoad() {

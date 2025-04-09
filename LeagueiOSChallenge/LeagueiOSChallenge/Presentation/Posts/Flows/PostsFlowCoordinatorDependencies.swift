@@ -8,9 +8,9 @@
 import UIKit
 
 protocol PostsFlowCoordinatorDependencies{
-    func makePostListViewController() -> PostListViewController
+    func makePostListViewController(actions: PostListViewModelActions) -> PostListViewController
     func makeLoginViewController(actions: LoginViewModelActions) -> LoginViewController
-
+    func makePostDetailsViewController() -> PostDetailsViewController
 }
 
 final class PostsFlowCoordinator{
@@ -36,8 +36,17 @@ final class PostsFlowCoordinator{
     }
     
     func showPostListViewScreen(isGuest: Bool){
-       let vc = dependencies.makePostListViewController()
+        let actions = PostListViewModelActions(showPostDetailsViewScreen: showPostDetailsViewScreen)
+        let vc = dependencies.makePostListViewController(actions: actions)
         vc.viewModel.isGuest.value = isGuest
        navigationController?.pushViewController(vc, animated: true)
    }
+    
+    func showPostDetailsViewScreen(user: UserDTO){
+       let vc = dependencies.makePostDetailsViewController()
+        vc.viewModel.user = user
+       navigationController?.pushViewController(vc, animated: true)
+   }
+    
+    
 }

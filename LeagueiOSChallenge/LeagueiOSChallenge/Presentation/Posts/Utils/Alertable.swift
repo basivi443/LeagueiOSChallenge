@@ -14,10 +14,13 @@ extension Alertable where Self: UIViewController {
         title: String = "",
         message: String,
         preferredStyle: UIAlertController.Style = .alert,
-        completion: (() -> Void)? = nil
+        onOK: (() -> Void)? = nil
     ) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: completion)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            onOK?()
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }

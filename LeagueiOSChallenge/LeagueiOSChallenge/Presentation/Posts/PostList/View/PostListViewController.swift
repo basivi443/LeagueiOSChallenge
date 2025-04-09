@@ -35,11 +35,14 @@ class PostListViewController: UIViewController, StoryboardInstantiable, Alertabl
     }
     
     @objc func backClicked(_ sender: UIButton){
-        showAlert(title: "ALert", message: "Thank you for trialing this app", preferredStyle: .alert) {
-            print("Hdlsfdslf")
+        if viewModel.isGuest.value{
+            showAlert(title: "Alert", message: "Thank you for trialing this app") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            return
         }
         self.navigationController?.popViewController(animated: true)
-
+        
     }
     //MARK: - Bind observers
     
@@ -73,6 +76,7 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate{
         cell?.userNameLbl.text = viewModel.users[indexPath.row].username
         cell?.titleLbl.text = viewModel.users[indexPath.row].name
         cell?.fetchImage(url: viewModel.users[indexPath.row].avatar ?? "")
+        cell?.selectionStyle = .none
         return cell!
         
     }
@@ -81,5 +85,7 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate{
         UITableView.automaticDimension
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.showPostDetailsViewScreen(user: viewModel.users[indexPath.row])
+    }
 }

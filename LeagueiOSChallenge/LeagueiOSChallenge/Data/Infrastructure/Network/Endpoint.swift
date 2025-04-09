@@ -153,3 +153,61 @@ private extension Encodable {
         return jsonData as? [String : Any]
     }
 }
+
+struct APIEndpoints {
+    
+    static func getUsers(headers:[String:String]? = nil) -> Endpoint<[UserDTO]>{
+        return Endpoint(path: "/users",
+                        method: .get,
+                        headerParameters: headers ?? [:]
+        )
+    }
+    
+    static func getProfile(path: String) -> Endpoint<Data?>{
+        return Endpoint(path: path,
+                        method: .get,
+        )
+    }
+    
+    static func getApiKey() -> Endpoint<ApiKey>{
+        return Endpoint(path: "/login",
+                        method: .get,
+        )
+    }
+}
+
+struct MMPResponse<T: Decodable>: Decodable {
+    let status:Int
+    let success:Bool
+    let message:String
+    let data: T?
+}
+
+class RepositoryTask: Cancellable {
+    var networkTask: NetworkCancellable?
+    var isCancelled: Bool = false
+    
+    func cancel() {
+        networkTask?.cancel()
+        isCancelled = true
+    }
+}
+
+
+import Foundation
+extension Error{
+    static func error(withMessage message: String) -> Error{
+        NSError.init(domain: "MMP Error", code: -1000, userInfo: ["message": message])
+    }
+    
+    var message: String? {
+        return (self as NSError?)?.userInfo["message"] as? String
+    }
+    static func unknownError() -> Error {
+        NSError.init(domain: "MMP Error", code: -1000, userInfo: ["message": "Unknown Error Occured"])
+    }
+}
+
+enum MMPError: Error{
+    
+}

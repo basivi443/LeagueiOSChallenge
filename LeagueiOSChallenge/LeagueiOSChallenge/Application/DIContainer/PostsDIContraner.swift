@@ -7,7 +7,7 @@
 import UIKit
 
 final class PostsDIContraner: PostsFlowCoordinatorDependencies{
-    
+   
     struct Dependencies {
         let apiDataTransferService: DataTransferService
     }
@@ -19,34 +19,62 @@ final class PostsDIContraner: PostsFlowCoordinatorDependencies{
     }
     lazy var userResponseCache: UserResponse = ResponseStorage()
     
-    // MARK: - Use Cases
+    
+    // MARK: - Post List
     func makePostListUseCase() -> PostListUseCase {
         DefaultPostListUseCase(
             postListRepository: makePostRepository()
         )
     }
     
-    // MARK: - Repositories
     func makePostRepository() -> PostListRepository{
         DefaultPostlistRepository(dataTransferService: dependencies.apiDataTransferService, cache: userResponseCache)
     }
-    func makePostListViewModel() -> PostListViewModel {
+    func makePostListViewModel(action: PostListViewModelActions) -> PostListViewModel {
         DefaultPostListViewModel(
-            postListUseCase: makePostListUseCase()
+            postListUseCase: makePostListUseCase(),
+            actions: action
         )
     }
     
-    func makeLoginViewModel(action: LoginViewModelActions)-> LoginViewModel{
-        DefaultLoginViewModel(actions: action)
+    func makePostListViewController(actions action: PostListViewModelActions) -> PostListViewController {
+        PostListViewController.create(with: makePostListViewModel(action: action), storyBoardName: PostsDIContraner.storyBoard)
     }
     
-    func makePostListViewController() -> PostListViewController {
-        PostListViewController.create(with: makePostListViewModel(), storyBoardName: PostsDIContraner.storyBoard)
+    //MARK: Login
+    func makeLoginViewModel(action: LoginViewModelActions)-> LoginViewModel{
+        DefaultLoginViewModel(actions: action)
     }
     
     func makeLoginViewController(actions action: LoginViewModelActions) -> LoginViewController {
         LoginViewController.create(with: makeLoginViewModel(action: action), storyBoardName: PostsDIContraner.storyBoard)
     }
+    
+    
+    
+    // MARK: - Post Details
+    func makePostDetailsUseCase() -> PostDetailsUseCase {
+        DefaultPostDetailsUseCase(
+            postDetailsRepository: makePostDetailsRepository()
+        )
+    }
+    
+    // MARK: - Repositories
+    func makePostDetailsRepository() -> PostDetailsRepository{
+        DefaultPostDetailsRepository()
+    }
+    func makePostDetailstViewModel() -> PostDetailsViewModel {
+        DefaultPostDetailsViewModel(
+            PostDetailsUseCase: makePostDetailsUseCase()
+        )
+    }
+    
+    func makePostDetailsViewController() -> PostDetailsViewController {
+        PostDetailsViewController.create(with: makePostDetailstViewModel(), storyBoardName: PostsDIContraner.storyBoard)
+    }
+    
+    
+    
     // MARK: - Flow Coordinators
     func makePostsFlowCoordinator(navigationController: UINavigationController) -> PostsFlowCoordinator {
         PostsFlowCoordinator(
